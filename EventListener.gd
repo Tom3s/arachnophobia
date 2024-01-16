@@ -71,7 +71,7 @@ func handleSpiderTaming():
 	eerieMusic.volume_db = linearToDecibel(1.0 - tamedRatio)
 	
 
-	happyMusic.volume_db = linearToDecibel(clamp(remap(tamedRatio, 0.5, 1.0, 0.0, 1.0), 0.0, 1.0) )
+	happyMusic.volume_db = linearToDecibel(clamp(remap(tamedRatio, 0.45, 1.0, 0.0, 1.0), 0.0, 1.0) )
 
 func linearToDecibel(linear):
 	if linear <= 0.0:

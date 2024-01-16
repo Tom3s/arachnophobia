@@ -20,7 +20,8 @@ var tamed = false
 
 var tamingTimeLeft: float = tamingTime
 
-var y_velocity = 0.0
+# var y_velocity = 0.0
+var velocity = Vector3.ZERO
 
 var jumpingCooldown = 0.0
 var initialJumpingCooldown = 0.5
@@ -39,11 +40,13 @@ func _process(delta):
 		look_at(player.global_position, Vector3.UP)
 		# global_rotation = lerp(oldRotation, global_rotation, rotationSpeed * delta)
 		global_rotation.y = lerp_angle(oldRotation.y, global_rotation.y, rotationSpeed * delta)
+		global_rotation.x = 0.0
 
 		if player.global_position.distance_to(global_position) <= tamingRadius:
 			tamingTimeLeft -= delta
 			if global_position.y < 0.01 && !tamed && jumpingCooldown <= 0.0:
-				y_velocity = player.jumpStrength * 0.7
+				# y_velocity = player.jumpStrength * 0.7
+				velocity.y = player.jumpStrength * 0.7
 				jumpingCooldown = initialJumpingCooldown
 	
 	
@@ -53,16 +56,28 @@ func _process(delta):
 		hearts.emitting = true
 		scary.visible = false
 		setAlwaysVisible()
+		jumpingCooldown = initialJumpingCooldown * 4.0
 		justTamed.emit()
 	
 	
-	y_velocity -= player.gravity * delta
+	if tamed && jumpingCooldown <= 0.0 && global_position.y < 0.01:
+		# velocity.y = player.jumpStrength
+		jumpingCooldown = initialJumpingCooldown * 4.0
+		velocity = (player.global_position - global_position).normalized() * player.jumpStrength * 0.8
+		velocity.y = player.jumpStrength * 0.8
 
-	global_position.y += y_velocity * delta
+	
+	velocity.y -= player.gravity * delta
+
+	global_position += velocity * delta
 	
 	if global_position.y < 0.0:
 		global_position.y = 0.0
-		y_velocity = max(0.0, y_velocity)
+		velocity.y = max(0.0, velocity.y)
+	
+	if jumpingCooldown > 0.0 && global_position.y < 0.01:
+		velocity.x *= 0.2 * delta
+		velocity.z *= 0.2 * delta
 	
 	jumpingCooldown -= delta
 

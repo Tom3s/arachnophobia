@@ -12,24 +12,24 @@ render_priority = 0
 shader = ExtResource("2_kcnea")
 shader_parameter/ColorParameter = Color(0.0148, 0.02, 0.0167933, 1)
 shader_parameter/MinAlpha = 0
-shader_parameter/FadeMin = 11.0
-shader_parameter/FadeMax = 10.0
+shader_parameter/FadeMin = 9.0
+shader_parameter/FadeMax = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5d0r1"]
 render_priority = 0
 shader = ExtResource("2_kcnea")
 shader_parameter/ColorParameter = Color(1, 1, 1, 1)
 shader_parameter/MinAlpha = 0
-shader_parameter/FadeMin = 11.0
-shader_parameter/FadeMax = 10.0
+shader_parameter/FadeMin = 9.0
+shader_parameter/FadeMax = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mnhoi"]
 render_priority = 0
 shader = ExtResource("2_kcnea")
 shader_parameter/ColorParameter = Color(1, 0, 0.117647, 1)
 shader_parameter/MinAlpha = 0
-shader_parameter/FadeMin = 11.0
-shader_parameter/FadeMax = 10.0
+shader_parameter/FadeMin = 9.0
+shader_parameter/FadeMax = 8.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6w5nm"]
 transparency = 1
@@ -38,9 +38,9 @@ albedo_color = Color(1, 1, 1, 0)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sv1rb"]
 render_priority = 0
 shader = ExtResource("3_887px")
-shader_parameter/ColorParameter = Color(0.114897, 0.114897, 0.114897, 1)
-shader_parameter/FadeMin = 10.0
-shader_parameter/FadeMax = 11.0
+shader_parameter/ColorParameter = Color(0.145098, 0.145098, 0.145098, 1)
+shader_parameter/FadeMin = 8.0
+shader_parameter/FadeMax = 9.0
 
 [sub_resource type="Curve" id="Curve_ldv2p"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.66791, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
