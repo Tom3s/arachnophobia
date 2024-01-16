@@ -37,7 +37,7 @@ default_value = 11.0
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha, shadows_disabled;
 
 uniform vec4 ColorParameter : source_color = vec4(0.017732, 0.017732, 0.017732, 1.000000);
 uniform float FadeMin = 10;
@@ -97,7 +97,8 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-88.9349, 7.77283)
+flags/depth_prepass_alpha = true
+flags/shadows_disabled = true
 nodes/fragment/0/position = Vector2(940, 180)
 nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_e2a4o")
 nodes/fragment/2/position = Vector2(-200, 80)

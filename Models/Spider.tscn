@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dj7laeqr0neod"]
+[gd_scene load_steps=11 format=3 uid="uid://dj7laeqr0neod"]
 
+[ext_resource type="Script" path="res://Spider.gd" id="1_77mbc"]
 [ext_resource type="ArrayMesh" uid="uid://bgb21cp4jniyj" path="res://Models/crsppdr.obj" id="1_b4grr"]
 [ext_resource type="ArrayMesh" uid="uid://p0j3dsar6uwy" path="res://Models/BigSpider.res" id="2_24wsn"]
 [ext_resource type="Shader" uid="uid://b7tlv2k3ix2jp" path="res://Models/CuteSpider.tres" id="2_kcnea"]
@@ -9,8 +10,8 @@
 render_priority = 0
 shader = ExtResource("2_kcnea")
 shader_parameter/ColorParameter = Color(0.0148, 0.02, 0.0167933, 1)
-shader_parameter/FadeMin = 10.0
-shader_parameter/FadeMax = 11.0
+shader_parameter/FadeMin = 11.0
+shader_parameter/FadeMax = 10.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5d0r1"]
 render_priority = 0
@@ -38,6 +39,8 @@ shader_parameter/FadeMin = 10.0
 shader_parameter/FadeMax = 11.0
 
 [node name="Spider" type="Node3D"]
+script = ExtResource("1_77mbc")
+rotationSpeed = 0.7
 
 [node name="Cute" type="MeshInstance3D" parent="."]
 transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74228e-09, 0, -0.180948, 0)
@@ -54,6 +57,7 @@ surface_material_override/8 = SubResource("ShaderMaterial_mnhoi")
 
 [node name="Scary" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.807836, -0.0938101, -0.751751)
+cast_shadow = 0
 mesh = ExtResource("2_24wsn")
 surface_material_override/0 = SubResource("StandardMaterial3D_6w5nm")
 surface_material_override/1 = SubResource("ShaderMaterial_sv1rb")

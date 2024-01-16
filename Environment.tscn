@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://durwlggc6i12j"]
+[gd_scene load_steps=10 format=3 uid="uid://durwlggc6i12j"]
 
 [ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
 [ext_resource type="PackedScene" uid="uid://c616jee44wt1q" path="res://Player.tscn" id="2_yaxka"]
+[ext_resource type="PackedScene" uid="uid://dj7laeqr0neod" path="res://Models/Spider.tscn" id="3_cicq3"]
+[ext_resource type="Script" path="res://EventListener.gd" id="4_ecl41"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g5u3f"]
 
@@ -36,3 +38,19 @@ transform = Transform3D(1, 0, 0, 0, 0.527579, 0.849506, 0, -0.849506, 0.527579, 
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_yaxka")]
+unique_name_in_owner = true
+
+[node name="Spiders" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Spider" parent="Spiders" instance=ExtResource("3_cicq3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.39308, 0, -16.5577)
+
+[node name="Spider2" parent="Spiders" instance=ExtResource("3_cicq3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3712, 0, -8.62076)
+
+[node name="Spider3" parent="Spiders" instance=ExtResource("3_cicq3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8126, 0, 10.0628)
+
+[node name="EventListener" type="Node" parent="."]
+script = ExtResource("4_ecl41")

@@ -40,7 +40,7 @@ func _process(delta):
 	
 	moveDir = moveDir.normalized()
 
-	if Input.is_action_just_pressed("jump") && position.y < 0.01:
+	if Input.is_action_just_pressed("jump") && global_position.y < 0.01:
 		velocity.y = jumpStrength
 
 
@@ -50,10 +50,10 @@ func _process(delta):
 
 	velocity.y -= gravity * delta
 
-	position += velocity * delta
+	global_position += velocity * delta
 	
-	if position.y < 0.0:
-		position.y = 0.0
+	if global_position.y < 0.0:
+		global_position.y = 0.0
 		velocity.y = max(0.0, velocity.y)
 
 @export
