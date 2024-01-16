@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://durwlggc6i12j"]
+[gd_scene load_steps=12 format=3 uid="uid://durwlggc6i12j"]
 
 [ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
 [ext_resource type="Shader" uid="uid://cgeqi7g7x1dyc" path="res://Sky.tres" id="1_dxa4q"]
 [ext_resource type="PackedScene" uid="uid://c616jee44wt1q" path="res://Player.tscn" id="2_yaxka"]
 [ext_resource type="Script" path="res://EventListener.gd" id="4_ecl41"]
+[ext_resource type="AudioStream" uid="uid://dm67bnirw5o07" path="res://Sounds/277192__thedweebman__eerie-tone-music-background-loop.wav" id="5_soa2s"]
+[ext_resource type="AudioStream" uid="uid://dj4q32ik0n0bj" path="res://Sounds/561383__migfus20__happy-background-music-orchestra-loop.mp3" id="6_vvoh3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3t15v"]
 shader = ExtResource("1_dxa4q")
@@ -18,10 +20,6 @@ sky = SubResource("Sky_6abt4")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 fog_enabled = true
-fog_light_color = Color(0.54902, 0.584314, 0.639216, 1)
-fog_light_energy = 0.0
-fog_density = 0.0
-fog_sky_affect = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_chiys"]
 size = Vector2(20, 20)
@@ -57,3 +55,11 @@ unique_name_in_owner = true
 
 [node name="EventListener" type="Node" parent="."]
 script = ExtResource("4_ecl41")
+
+[node name="EerieMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_soa2s")
+
+[node name="HappyMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_vvoh3")

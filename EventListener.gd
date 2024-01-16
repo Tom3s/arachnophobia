@@ -8,6 +8,9 @@ var spiderScene := preload("res://Models/Spider.tscn")
 @onready var worldEnvironment: WorldEnvironment = %WorldEnvironment
 @onready var sun: DirectionalLight3D = %Sun
 
+@onready var eerieMusic: AudioStreamPlayer = %EerieMusic
+@onready var happyMusic: AudioStreamPlayer = %HappyMusic
+
 var totalSpiderCount: int = 20
 var tamedSpiderCount: int = 0
 
@@ -15,6 +18,9 @@ var tamedSpiderCount: int = 0
 const SPIDER_SPAWN_RANGE = 75
 const MIN_SPIDER_DISTANCE = 10
 func _ready():
+	eerieMusic.play()
+	happyMusic.play()
+
 	tamedSpiderCount = -1
 	handleSpiderTaming()
 	# for spider in spiders.get_children():
@@ -61,3 +67,14 @@ func handleSpiderTaming():
 	worldEnvironment.environment.fog_light_color = lerp(Color(0.05, 0.05, 0.05, 0), tamedSkyColor, tamedRatio)
 
 	sun.light_energy = lerp(0.15, 1.0, tamedRatio)
+
+	eerieMusic.volume_db = linearToDecibel(1.0 - tamedRatio)
+	
+
+	happyMusic.volume_db = linearToDecibel(clamp(remap(tamedRatio, 0.5, 1.0, 0.0, 1.0), 0.0, 1.0) )
+
+func linearToDecibel(linear):
+	if linear <= 0.0:
+		return -60.0  # Minimum value, -60 dB for non-positive linear values
+	else:
+		return 20.0 * (log(linear) / log(10.0))  

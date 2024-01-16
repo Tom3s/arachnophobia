@@ -26,7 +26,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0.0962047, 0.0962048, 0.0962047, 1, 0.1728
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_1bypw"]
 gradient = SubResource("Gradient_bnwpq")
-use_hdr = true
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_tui3y"]
 texture = SubResource("GradientTexture1D_1bypw")
@@ -93,7 +92,7 @@ void sky() {
 
 }
 "
-graph_offset = Vector2(-47.4458, -73.1623)
+graph_offset = Vector2(74.0233, 34.3944)
 mode = 3
 flags/use_half_res_pass = false
 flags/use_quarter_res_pass = false

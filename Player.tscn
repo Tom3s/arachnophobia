@@ -1,8 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c616jee44wt1q"]
+[gd_scene load_steps=5 format=3 uid="uid://c616jee44wt1q"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t8fa6"]
+[ext_resource type="AudioStream" uid="uid://wk48slenk14m" path="res://Sounds/469155__hawkeye_sprout__grass-step.wav" id="2_1nkvi"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3lea"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xbwac"]
+random_pitch = 1.2
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("2_1nkvi")
+stream_0/weight = 1.0
 
 [node name="Player" type="Node3D"]
 script = ExtResource("1_t8fa6")
@@ -17,3 +25,8 @@ mesh = SubResource("CapsuleMesh_f3lea")
 [node name="Camera" type="Camera3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Footstep" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_xbwac")
+max_polyphony = 8

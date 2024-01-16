@@ -2,6 +2,7 @@ extends Node3D
 
 
 @onready var camera: Camera3D = %Camera
+@onready var footstep: AudioStreamPlayer = %Footstep
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +29,8 @@ signal newPositionOnGrid(position: Vector2i)
 
 const GRID_SIZE: int = 10
 
+var lastStepPosition: Vector3 = Vector3.ZERO
+var stepCooldown: float = 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var moveDir = Vector3.ZERO
@@ -66,6 +69,11 @@ func _process(delta):
 		global_position.y = 0.0
 		velocity.y = max(0.0, velocity.y)
 	
+	if global_position.y <= 0.01:
+		if lastStepPosition.distance_to(global_position) > 2.0:
+			footstep.play()
+			lastStepPosition = global_position
+
 	var gridPos = Vector2i(floor(global_position.x / GRID_SIZE), floor(global_position.z / GRID_SIZE))
 	newPositionOnGrid.emit(gridPos)
 
