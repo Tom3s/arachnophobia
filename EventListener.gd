@@ -11,7 +11,10 @@ var spiderScene := preload("res://Models/Spider.tscn")
 @onready var eerieMusic: AudioStreamPlayer = %EerieMusic
 @onready var happyMusic: AudioStreamPlayer = %HappyMusic
 
-var totalSpiderCount: int = 8
+@onready var labelContainer: Control = %LabelContainer
+@onready var spacer: Control = %Spacer
+
+var totalSpiderCount: int = 20
 var tamedSpiderCount: int = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -33,9 +36,15 @@ func _ready():
 		spiders.add_child(spider)
 		spider.justTamed.connect(handleSpiderTaming)
 
+		if spawnedSpiders == 0:
+			spider.global_position = Vector3(0, 0, -MIN_SPIDER_DISTANCE * 2)
+			occupiedPositions.append(spider.global_position)
+			spawnedSpiders += 1
+			continue
+
 		while true:
 			var newPosition = Vector3((randf() * 2 - 1) * SPIDER_SPAWN_RANGE, 0, (randf() * 2 - 1) * SPIDER_SPAWN_RANGE)
-			var tooClose := false
+			var tooClose := newPosition.distance_to(player.global_position) < MIN_SPIDER_DISTANCE
 			for position in occupiedPositions:
 				if newPosition.distance_to(position) < MIN_SPIDER_DISTANCE:
 					tooClose = true
@@ -73,8 +82,16 @@ func handleSpiderTaming():
 
 	happyMusic.volume_db = linearToDecibel(clamp(remap(tamedRatio, 0.45, 1.0, 0.0, 1.0), 0.0, 1.0) )
 
+	if tamedRatio >= 1.0:
+		var tween = create_tween()
+
+		tween.tween_property(labelContainer, "modulate", Color(1, 1, 1, 1), 1.0)
+
 func linearToDecibel(linear):
 	if linear <= 0.0:
 		return -60.0  # Minimum value, -60 dB for non-positive linear values
 	else:
 		return 20.0 * (log(linear) / log(10.0))  
+
+func _process(delta):
+	spacer.custom_minimum_size.y = 400 + sin(Time.get_ticks_msec() / 500.0) * 50

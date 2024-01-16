@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://durwlggc6i12j"]
+[gd_scene load_steps=13 format=3 uid="uid://durwlggc6i12j"]
 
 [ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
 [ext_resource type="Shader" uid="uid://cgeqi7g7x1dyc" path="res://Sky.tres" id="1_dxa4q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://EventListener.gd" id="4_ecl41"]
 [ext_resource type="AudioStream" uid="uid://dm67bnirw5o07" path="res://Sounds/277192__thedweebman__eerie-tone-music-background-loop.wav" id="5_soa2s"]
 [ext_resource type="AudioStream" uid="uid://dj4q32ik0n0bj" path="res://Sounds/561383__migfus20__happy-background-music-orchestra-loop.mp3" id="6_vvoh3"]
+[ext_resource type="Texture2D" uid="uid://qy1b16tvbuht" path="res://Models/pngtree-smooth-glossy-heart-vector-file-ai-and-png-png-image_4557871.png" id="7_8y5aj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3t15v"]
 shader = ExtResource("1_dxa4q")
@@ -66,3 +67,41 @@ stream = ExtResource("5_soa2s")
 [node name="HappyMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_vvoh3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="LabelContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/VBoxContainer/LabelContainer"]
+layout_mode = 2
+texture = ExtResource("7_8y5aj")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/LabelContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 56
+text = "You tamed all spiders!!"
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/VBoxContainer/LabelContainer"]
+layout_mode = 2
+texture = ExtResource("7_8y5aj")
+expand_mode = 3
+
+[node name="Spacer" type="Control" parent="CanvasLayer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2

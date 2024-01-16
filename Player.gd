@@ -38,6 +38,13 @@ func _process(delta):
 	if Input.is_action_pressed("exit"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# get_tree().quit()
+	
+	if Input.is_action_just_pressed("fullscreen"):
+		var isFullScreen = DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+		if !isFullScreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 	if Input.is_action_pressed("move_forward"):
 		moveDir -= transform.basis.z
