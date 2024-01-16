@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dj7laeqr0neod"]
+[gd_scene load_steps=21 format=3 uid="uid://dj7laeqr0neod"]
 
 [ext_resource type="Script" path="res://Spider.gd" id="1_77mbc"]
 [ext_resource type="ArrayMesh" uid="uid://bgb21cp4jniyj" path="res://Models/crsppdr.obj" id="1_b4grr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://b7tlv2k3ix2jp" path="res://Models/CuteSpider.tres" id="2_kcnea"]
 [ext_resource type="Shader" uid="uid://c7tfw7b51vfl3" path="res://ScarySpider.tres" id="3_887px"]
 [ext_resource type="Texture2D" uid="uid://qy1b16tvbuht" path="res://Models/pngtree-smooth-glossy-heart-vector-file-ai-and-png-png-image_4557871.png" id="6_nnyle"]
+[ext_resource type="AudioStream" uid="uid://dun584ylq71ua" path="res://Sounds/518126__se2001__8-bit-jump.wav" id="7_kxdrh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxa0s"]
 render_priority = 0
@@ -82,6 +83,12 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_5c5n4"]
 material = SubResource("StandardMaterial3D_ibb5u")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xj5a5"]
+random_pitch = 1.3
+streams_count = 1
+stream_0/stream = ExtResource("7_kxdrh")
+stream_0/weight = 1.0
+
 [node name="Spider" type="Node3D"]
 script = ExtResource("1_77mbc")
 rotationSpeed = 0.7
@@ -116,3 +123,10 @@ lifetime = 0.51
 explosiveness = 0.26
 process_material = SubResource("ParticleProcessMaterial_7wcpl")
 draw_pass_1 = SubResource("QuadMesh_5c5n4")
+
+[node name="Jump" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_xj5a5")
+volume_db = -12.0
+pitch_scale = 1.1
+max_polyphony = 4

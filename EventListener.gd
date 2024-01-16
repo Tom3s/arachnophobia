@@ -59,14 +59,14 @@ func handleSpiderTaming():
 	var tamedRatio = tamedSpiderCount / float(totalSpiderCount)
 
 	(basePlane.get_surface_override_material(0) as ShaderMaterial).set_shader_parameter("MixWeight", tamedRatio)
-	(worldEnvironment.environment.sky.sky_material as ShaderMaterial).set_shader_parameter("MixWeight", tamedRatio)
+	(worldEnvironment.environment.sky.sky_material as ShaderMaterial).set_shader_parameter("MixWeight", tamedRatio * tamedRatio)
 
-	worldEnvironment.environment.fog_density = lerp(0.07, 0.0, tamedRatio)
-	worldEnvironment.environment.fog_sky_affect = lerp(1.0, 0.0, tamedRatio)
-	worldEnvironment.environment.fog_light_energy = lerp(1.0, 0.0, tamedRatio)
-	worldEnvironment.environment.fog_light_color = lerp(Color(0.05, 0.05, 0.05, 0), tamedSkyColor, tamedRatio)
+	worldEnvironment.environment.fog_density = lerp(0.07, 0.0, tamedRatio * tamedRatio)
+	worldEnvironment.environment.fog_sky_affect = lerp(1.0, 0.0, tamedRatio * tamedRatio)
+	worldEnvironment.environment.fog_light_energy = lerp(1.0, 0.0, tamedRatio * tamedRatio)
+	worldEnvironment.environment.fog_light_color = lerp(Color(0.05, 0.05, 0.05, 0), tamedSkyColor, tamedRatio * tamedRatio)
 
-	sun.light_energy = lerp(0.15, 1.0, tamedRatio)
+	sun.light_energy = lerp(0.15, 1.0, tamedRatio * tamedRatio)
 
 	eerieMusic.volume_db = linearToDecibel(1.0 - tamedRatio)
 	

@@ -1,7 +1,7 @@
 [gd_resource type="VisualShader" load_steps=29 format=3 uid="uid://cp7dpxsnbljhu"]
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_pqa6g"]
-constant = 0.5
+constant = 0.7
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xextq"]
 noise_type = 3
@@ -187,7 +187,7 @@ void fragment() {
 
 
 // FloatConstant:10
-	float n_out10p0 = 0.500000;
+	float n_out10p0 = 0.700000;
 
 
 // Texture2D:11
@@ -198,12 +198,12 @@ void fragment() {
 	ALBEDO = n_out8p0;
 	ALPHA = n_out21p0;
 	ROUGHNESS = n_out10p0;
-	SPECULAR = n_out5p0.x;
 	NORMAL_MAP = vec3(n_out11p0.xyz);
 
 
 }
 "
+graph_offset = Vector2(953.706, 176.407)
 flags/depth_prepass_alpha = true
 nodes/fragment/0/position = Vector2(1820, 200)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_uae4f")
@@ -244,4 +244,4 @@ nodes/fragment/20/node = SubResource("VisualShaderNodeInput_hn6a0")
 nodes/fragment/20/position = Vector2(-340, -400)
 nodes/fragment/21/node = SubResource("VisualShaderNodeDistanceFade_8l0tw")
 nodes/fragment/21/position = Vector2(1400, 200)
-nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 5, 0, 7, 0, 6, 0, 8, 0, 7, 0, 8, 1, 8, 0, 0, 0, 5, 0, 0, 4, 10, 0, 0, 3, 11, 0, 0, 9, 9, 0, 14, 0, 12, 0, 15, 2, 15, 0, 8, 2, 14, 0, 16, 0, 14, 0, 17, 0, 16, 0, 15, 0, 17, 0, 15, 1, 18, 0, 19, 0, 20, 0, 19, 1, 19, 0, 12, 0, 21, 0, 0, 1)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 3, 0, 4, 0, 4, 0, 5, 0, 5, 0, 6, 0, 5, 0, 7, 0, 6, 0, 8, 0, 7, 0, 8, 1, 8, 0, 0, 0, 10, 0, 0, 3, 11, 0, 0, 9, 9, 0, 14, 0, 12, 0, 15, 2, 15, 0, 8, 2, 14, 0, 16, 0, 14, 0, 17, 0, 16, 0, 15, 0, 17, 0, 15, 1, 18, 0, 19, 0, 20, 0, 19, 1, 19, 0, 12, 0, 21, 0, 0, 1)
