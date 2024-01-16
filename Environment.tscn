@@ -1,21 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://durwlggc6i12j"]
+[gd_scene load_steps=10 format=3 uid="uid://durwlggc6i12j"]
 
 [ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
+[ext_resource type="Shader" uid="uid://cgeqi7g7x1dyc" path="res://Sky.tres" id="1_dxa4q"]
 [ext_resource type="PackedScene" uid="uid://c616jee44wt1q" path="res://Player.tscn" id="2_yaxka"]
 [ext_resource type="Script" path="res://EventListener.gd" id="4_ecl41"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g5u3f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3t15v"]
+shader = ExtResource("1_dxa4q")
+shader_parameter/MixWeight = 0.0
 
-[sub_resource type="Sky" id="Sky_fpdbe"]
-sky_material = SubResource("ProceduralSkyMaterial_g5u3f")
+[sub_resource type="Sky" id="Sky_6abt4"]
+sky_material = SubResource("ShaderMaterial_3t15v")
 
 [sub_resource type="Environment" id="Environment_d2x7g"]
 background_mode = 2
-sky = SubResource("Sky_fpdbe")
+sky = SubResource("Sky_6abt4")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
-fog_light_color = Color(0.313726, 0.341176, 0.388235, 1)
-fog_density = 0.0787
+fog_enabled = true
+fog_light_color = Color(0.54902, 0.584314, 0.639216, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_chiys"]
 size = Vector2(20, 20)
@@ -29,6 +32,7 @@ shader_parameter/UVOffset = null
 [node name="Environment" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+unique_name_in_owner = true
 environment = SubResource("Environment_d2x7g")
 
 [node name="BasePlane" type="MeshInstance3D" parent="."]

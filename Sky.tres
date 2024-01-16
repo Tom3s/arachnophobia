@@ -1,0 +1,117 @@
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://cgeqi7g7x1dyc"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_gba4x"]
+input_name = "eyedir"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_qw22q"]
+default_input_values = [0, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_0glmm"]
+default_input_values = [1, -1.0, 2, 1.0, 3, 0.0, 4, 1.0]
+
+[sub_resource type="Gradient" id="Gradient_eq6mi"]
+offsets = PackedFloat32Array(0.444079, 0.634868, 1)
+colors = PackedColorArray(0.75, 0.607, 0.42, 1, 0.4437, 0.85579, 0.87, 1, 0.6545, 0.836967, 0.85, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y00o0"]
+gradient = SubResource("Gradient_eq6mi")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_s1ld3"]
+texture = SubResource("GradientTexture1D_y00o0")
+
+[sub_resource type="Gradient" id="Gradient_bnwpq"]
+offsets = PackedFloat32Array(0.467105, 0.615132, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0962047, 0.0962048, 0.0962047, 1, 0.172833, 0.172833, 0.172833, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1bypw"]
+gradient = SubResource("Gradient_bnwpq")
+use_hdr = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_tui3y"]
+texture = SubResource("GradientTexture1D_1bypw")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_niskc"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_0qfy8"]
+parameter_name = "MixWeight"
+hint = 1
+default_value_enabled = true
+
+[resource]
+code = "shader_type sky;
+uniform sampler2D tex_sky_7;
+uniform sampler2D tex_sky_6;
+uniform float MixWeight : hint_range(0, 1) = 0;
+
+
+
+void sky() {
+// Input:2
+	vec3 n_out2p0 = EYEDIR;
+
+
+// VectorDecompose:4
+	float n_out4p0 = vec2(n_out2p0.xy).x;
+	float n_out4p1 = vec2(n_out2p0.xy).y;
+
+
+	float n_out5p0;
+// Remap:5
+	float n_in5p1 = -1.00000;
+	float n_in5p2 = 1.00000;
+	float n_in5p3 = 0.00000;
+	float n_in5p4 = 1.00000;
+	{
+		float __input_range = n_in5p2 - n_in5p1;
+		float __output_range = n_in5p4 - n_in5p3;
+		n_out5p0 = n_in5p3 + __output_range * ((n_out4p1 - n_in5p1) / __input_range);
+	}
+
+
+// Texture2D:7
+	vec4 n_out7p0 = texture(tex_sky_7, vec2(n_out5p0));
+
+
+// Texture2D:6
+	vec4 n_out6p0 = texture(tex_sky_6, vec2(n_out5p0));
+
+
+// FloatParameter:9
+	float n_out9p0 = MixWeight;
+
+
+// Mix:8
+	vec3 n_out8p0 = mix(vec3(n_out7p0.xyz), vec3(n_out6p0.xyz), vec3(n_out9p0));
+
+
+// Output:0
+	COLOR = n_out8p0;
+
+
+}
+"
+graph_offset = Vector2(-47.4458, -73.1623)
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/sky/0/position = Vector2(1260, 280)
+nodes/sky/2/node = SubResource("VisualShaderNodeInput_gba4x")
+nodes/sky/2/position = Vector2(-320, 20)
+nodes/sky/4/node = SubResource("VisualShaderNodeVectorDecompose_qw22q")
+nodes/sky/4/position = Vector2(60, 0)
+nodes/sky/5/node = SubResource("VisualShaderNodeRemap_0glmm")
+nodes/sky/5/position = Vector2(320, 80)
+nodes/sky/6/node = SubResource("VisualShaderNodeTexture_s1ld3")
+nodes/sky/6/position = Vector2(560, 120)
+nodes/sky/7/node = SubResource("VisualShaderNodeTexture_tui3y")
+nodes/sky/7/position = Vector2(540, 320)
+nodes/sky/8/node = SubResource("VisualShaderNodeMix_niskc")
+nodes/sky/8/position = Vector2(860, 220)
+nodes/sky/9/node = SubResource("VisualShaderNodeFloatParameter_0qfy8")
+nodes/sky/9/position = Vector2(320, -220)
+nodes/sky/connections = PackedInt32Array(2, 0, 4, 0, 4, 1, 5, 0, 5, 0, 6, 0, 5, 0, 7, 0, 8, 0, 0, 0, 9, 0, 8, 2, 7, 0, 8, 0, 6, 0, 8, 1)
