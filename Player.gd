@@ -33,8 +33,8 @@ func _process(delta):
 	var moveDir = Vector3.ZERO
 
 	if Input.is_action_pressed("exit"):
-		# Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		get_tree().quit()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		# get_tree().quit()
 
 	if Input.is_action_pressed("move_forward"):
 		moveDir -= transform.basis.z
@@ -78,5 +78,13 @@ func _input(event):
 		rotate_y(deg_to_rad(-mouseEvent.relative.x * mouseSensitivity))
 		camera.rotate_x(deg_to_rad(-mouseEvent.relative.y * mouseSensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90.0), deg_to_rad(90.0))
+	
+	if event is InputEventMouseButton && Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED:
+		var mouseEvent = event as InputEventMouseButton
+		if mouseEvent.button_mask == MOUSE_BUTTON_MASK_LEFT:
+			var windowSize = get_viewport().get_visible_rect().size
+			var mousePos = mouseEvent.position
+			if mousePos.x > 0 && mousePos.x < windowSize.x && mousePos.y > 0 && mousePos.y < windowSize.y:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 		
