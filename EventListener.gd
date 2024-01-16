@@ -6,8 +6,9 @@ var spiderScene := preload("res://Models/Spider.tscn")
 @onready var player: Node3D = %Player
 @onready var basePlane: MeshInstance3D = %BasePlane
 @onready var worldEnvironment: WorldEnvironment = %WorldEnvironment
+@onready var sun: DirectionalLight3D = %Sun
 
-var totalSpiderCount: int = 3
+var totalSpiderCount: int = 20
 var tamedSpiderCount: int = 0
 
 # Called when the node enters the scene tree for the first time.
@@ -58,3 +59,5 @@ func handleSpiderTaming():
 	worldEnvironment.environment.fog_sky_affect = lerp(1.0, 0.0, tamedRatio)
 	worldEnvironment.environment.fog_light_energy = lerp(1.0, 0.0, tamedRatio)
 	worldEnvironment.environment.fog_light_color = lerp(Color(0.05, 0.05, 0.05, 0), tamedSkyColor, tamedRatio)
+
+	sun.light_energy = lerp(0.15, 1.0, tamedRatio)

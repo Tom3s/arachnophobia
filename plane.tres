@@ -99,7 +99,7 @@ default_value_enabled = true
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
 
 uniform sampler2D tex_frg_5;
 uniform sampler2D tex_frg_6;
@@ -204,7 +204,8 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(623.818, 58.74)
+graph_offset = Vector2(681.818, 325.74)
+flags/depth_prepass_alpha = true
 nodes/fragment/0/position = Vector2(1820, 200)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_uae4f")
 nodes/fragment/2/position = Vector2(-700, 40)

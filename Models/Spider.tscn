@@ -69,7 +69,7 @@ scale_curve = SubResource("CurveTexture_lpcqe")
 alpha_curve = SubResource("CurveTexture_l1kn8")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ibb5u"]
-transparency = 1
+transparency = 4
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("6_nnyle")
