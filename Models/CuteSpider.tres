@@ -1,0 +1,91 @@
+[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://b7tlv2k3ix2jp"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_3p5lg"]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+default_value = Color(0.0177324, 0.0177324, 0.0177324, 1)
+
+[sub_resource type="VisualShaderNodeDistanceFade" id="VisualShaderNodeDistanceFade_xcopd"]
+default_input_values = [0, 10.0, 1, 11.0]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jnv3x"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i6p2j"]
+noise = SubResource("FastNoiseLite_jnv3x")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qsau4"]
+output_port_for_preview = 0
+texture = SubResource("NoiseTexture2D_i6p2j")
+
+[sub_resource type="VisualShaderNodeRemap" id="VisualShaderNodeRemap_pt8oy"]
+default_input_values = [1, 0.0, 2, 1.0, 3, -1.0, 4, 1.0]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_5ocox"]
+
+[sub_resource type="VisualShaderNodeClamp" id="VisualShaderNodeClamp_ufb8h"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_dnqm0"]
+parameter_name = "FadeMin"
+default_value_enabled = true
+default_value = 11.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_jm2fo"]
+parameter_name = "FadeMax"
+default_value_enabled = true
+default_value = 10.0
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+
+uniform vec4 ColorParameter : source_color = vec4(0.017732, 0.017732, 0.017732, 1.000000);
+uniform float FadeMin = 11;
+uniform float FadeMax = 10;
+
+
+
+void fragment() {
+// ColorParameter:2
+	vec4 n_out2p0 = ColorParameter;
+
+
+// FloatParameter:8
+	float n_out8p0 = FadeMin;
+
+
+// FloatParameter:9
+	float n_out9p0 = FadeMax;
+
+
+// DistanceFade:3
+	float n_out3p0 = clamp(smoothstep(n_out8p0, n_out9p0,-VERTEX.z),0.0,1.0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	ALPHA = n_out3p0;
+
+
+}
+"
+graph_offset = Vector2(-481.16, 1.79781)
+flags/depth_prepass_alpha = true
+nodes/fragment/0/position = Vector2(940, 180)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_3p5lg")
+nodes/fragment/2/position = Vector2(-200, 80)
+nodes/fragment/3/node = SubResource("VisualShaderNodeDistanceFade_xcopd")
+nodes/fragment/3/position = Vector2(-97.6518, 330.544)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_qsau4")
+nodes/fragment/4/position = Vector2(-280, 440)
+nodes/fragment/5/node = SubResource("VisualShaderNodeRemap_pt8oy")
+nodes/fragment/5/position = Vector2(40, 500)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatOp_5ocox")
+nodes/fragment/6/position = Vector2(340, 320)
+nodes/fragment/7/node = SubResource("VisualShaderNodeClamp_ufb8h")
+nodes/fragment/7/position = Vector2(560, 300)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatParameter_dnqm0")
+nodes/fragment/8/position = Vector2(-640, 200)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_jm2fo")
+nodes/fragment/9/position = Vector2(-680, 400)
+nodes/fragment/connections = PackedInt32Array(4, 0, 5, 0, 5, 0, 6, 1, 3, 0, 6, 0, 6, 0, 7, 0, 2, 0, 0, 0, 8, 0, 3, 0, 9, 0, 3, 1, 3, 0, 0, 1)

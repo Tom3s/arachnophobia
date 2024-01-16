@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ukcqmlrjkdsf"]
+
+[ext_resource type="Shader" uid="uid://durlqa3wgvckc" path="res://FadeShader.tres" id="1_mi8vi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tmcr"]
+render_priority = 1
+shader = ExtResource("1_mi8vi")
+shader_parameter/FadeMin = 0.0
+shader_parameter/FadeMax = 10.0
+
+[resource]
+resource_name = "Skin_1"
+next_pass = SubResource("ShaderMaterial_1tmcr")
+albedo_color = Color(0.026484, 0.020993, 0.028481, 1)
+metallic = 0.017801
