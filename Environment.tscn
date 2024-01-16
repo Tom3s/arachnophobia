@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://durwlggc6i12j"]
+
+[ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
+[ext_resource type="PackedScene" uid="uid://c616jee44wt1q" path="res://Player.tscn" id="2_yaxka"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g5u3f"]
+
+[sub_resource type="Sky" id="Sky_fpdbe"]
+sky_material = SubResource("ProceduralSkyMaterial_g5u3f")
+
+[sub_resource type="Environment" id="Environment_d2x7g"]
+background_mode = 2
+sky = SubResource("Sky_fpdbe")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_chiys"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gmcll"]
+render_priority = 0
+shader = ExtResource("1_4rly7")
+
+[node name="Environment" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_d2x7g")
+
+[node name="BasePlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_chiys")
+surface_material_override/0 = SubResource("ShaderMaterial_gmcll")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.527579, 0.849506, 0, -0.849506, 0.527579, 0, 1.38716, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_yaxka")]
