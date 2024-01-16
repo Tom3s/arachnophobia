@@ -11,7 +11,7 @@ var spiderScene := preload("res://Models/Spider.tscn")
 @onready var eerieMusic: AudioStreamPlayer = %EerieMusic
 @onready var happyMusic: AudioStreamPlayer = %HappyMusic
 
-var totalSpiderCount: int = 20
+var totalSpiderCount: int = 8
 var tamedSpiderCount: int = 0
 
 # Called when the node enters the scene tree for the first time.

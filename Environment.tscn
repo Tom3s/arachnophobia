@@ -9,7 +9,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3t15v"]
 shader = ExtResource("1_dxa4q")
-shader_parameter/MixWeight = 0.0
+shader_parameter/MixWeight = 1.0
 
 [sub_resource type="Sky" id="Sky_6abt4"]
 sky_material = SubResource("ShaderMaterial_3t15v")
@@ -20,6 +20,9 @@ sky = SubResource("Sky_6abt4")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 fog_enabled = true
+fog_light_energy = 0.0
+fog_density = 0.0
+fog_sky_affect = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_chiys"]
 size = Vector2(20, 20)

@@ -1,4 +1,41 @@
-[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://cgeqi7g7x1dyc"]
+[gd_resource type="VisualShader" load_steps=23 format=3 uid="uid://cgeqi7g7x1dyc"]
+
+[sub_resource type="Gradient" id="Gradient_ue1ri"]
+offsets = PackedFloat32Array(0.542763, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l2nks"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_07wsn"]
+seamless = true
+color_ramp = SubResource("Gradient_ue1ri")
+noise = SubResource("FastNoiseLite_l2nks")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_7g6vg"]
+texture = SubResource("NoiseTexture2D_07wsn")
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_hqh0s"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ru8qe"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_bfp2l"]
+op_type = 0
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_jw8jh"]
+default_input_values = [0, 0.0, 1, 0.015]
+operator = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_53mk1"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_tgn7w"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_mvcjw"]
+operator = 2
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_gba4x"]
 input_name = "eyedir"
@@ -44,6 +81,7 @@ code = "shader_type sky;
 uniform sampler2D tex_sky_7;
 uniform sampler2D tex_sky_6;
 uniform float MixWeight : hint_range(0, 1) = 0;
+uniform sampler2D tex_sky_10;
 
 
 
@@ -86,31 +124,82 @@ void sky() {
 	vec3 n_out8p0 = mix(vec3(n_out7p0.xyz), vec3(n_out6p0.xyz), vec3(n_out9p0));
 
 
+// Input:15
+	vec2 n_out15p0 = SKY_COORDS;
+
+
+// Input:11
+	float n_out11p0 = TIME;
+
+
+// FloatOp:14
+	float n_in14p1 = 0.01500;
+	float n_out14p0 = n_out11p0 * n_in14p1;
+
+
+// VectorCompose:13
+	float n_in13p1 = 0.00000;
+	vec2 n_out13p0 = vec2(n_out14p0, n_in13p1);
+
+
+// VectorOp:12
+	vec2 n_out12p0 = n_out15p0 + n_out13p0;
+
+
+// Texture2D:10
+	vec4 n_out10p0 = texture(tex_sky_10, n_out12p0);
+
+
+// FloatOp:17
+	float n_out17p0 = n_out10p0.x * n_out9p0;
+
+
+// Mix:16
+	vec3 n_in16p1 = vec3(1.00000, 1.00000, 1.00000);
+	vec3 n_out16p0 = mix(n_out8p0, n_in16p1, vec3(n_out17p0));
+
+
 // Output:0
-	COLOR = n_out8p0;
+	COLOR = n_out16p0;
 
 
 }
 "
-graph_offset = Vector2(74.0233, 34.3944)
+graph_offset = Vector2(-129.922, -97.6442)
 mode = 3
 flags/use_half_res_pass = false
 flags/use_quarter_res_pass = false
 flags/disable_fog = false
 flags/use_debanding = false
-nodes/sky/0/position = Vector2(1260, 280)
+nodes/sky/0/position = Vector2(1500, 300)
 nodes/sky/2/node = SubResource("VisualShaderNodeInput_gba4x")
-nodes/sky/2/position = Vector2(-320, 20)
+nodes/sky/2/position = Vector2(-880, 80)
 nodes/sky/4/node = SubResource("VisualShaderNodeVectorDecompose_qw22q")
-nodes/sky/4/position = Vector2(60, 0)
+nodes/sky/4/position = Vector2(-140, 380)
 nodes/sky/5/node = SubResource("VisualShaderNodeRemap_0glmm")
-nodes/sky/5/position = Vector2(320, 80)
+nodes/sky/5/position = Vector2(160, 620)
 nodes/sky/6/node = SubResource("VisualShaderNodeTexture_s1ld3")
-nodes/sky/6/position = Vector2(560, 120)
+nodes/sky/6/position = Vector2(620, 420)
 nodes/sky/7/node = SubResource("VisualShaderNodeTexture_tui3y")
-nodes/sky/7/position = Vector2(540, 320)
+nodes/sky/7/position = Vector2(640, 640)
 nodes/sky/8/node = SubResource("VisualShaderNodeMix_niskc")
-nodes/sky/8/position = Vector2(860, 220)
+nodes/sky/8/position = Vector2(1020, 420)
 nodes/sky/9/node = SubResource("VisualShaderNodeFloatParameter_0qfy8")
 nodes/sky/9/position = Vector2(320, -220)
-nodes/sky/connections = PackedInt32Array(2, 0, 4, 0, 4, 1, 5, 0, 5, 0, 6, 0, 5, 0, 7, 0, 8, 0, 0, 0, 9, 0, 8, 2, 7, 0, 8, 0, 6, 0, 8, 1)
+nodes/sky/10/node = SubResource("VisualShaderNodeTexture_7g6vg")
+nodes/sky/10/position = Vector2(880, -60)
+nodes/sky/11/node = SubResource("VisualShaderNodeInput_hqh0s")
+nodes/sky/11/position = Vector2(-240, -140)
+nodes/sky/12/node = SubResource("VisualShaderNodeVectorOp_ru8qe")
+nodes/sky/12/position = Vector2(600, 0)
+nodes/sky/13/node = SubResource("VisualShaderNodeVectorCompose_bfp2l")
+nodes/sky/13/position = Vector2(300, 120)
+nodes/sky/14/node = SubResource("VisualShaderNodeFloatOp_jw8jh")
+nodes/sky/14/position = Vector2(80, -100)
+nodes/sky/15/node = SubResource("VisualShaderNodeInput_53mk1")
+nodes/sky/15/position = Vector2(-160, 60)
+nodes/sky/16/node = SubResource("VisualShaderNodeMix_tgn7w")
+nodes/sky/16/position = Vector2(1320, 260)
+nodes/sky/17/node = SubResource("VisualShaderNodeFloatOp_mvcjw")
+nodes/sky/17/position = Vector2(1079.33, 226.95)
+nodes/sky/connections = PackedInt32Array(2, 0, 4, 0, 4, 1, 5, 0, 5, 0, 6, 0, 5, 0, 7, 0, 9, 0, 8, 2, 7, 0, 8, 0, 6, 0, 8, 1, 11, 0, 14, 0, 14, 0, 13, 0, 12, 0, 10, 0, 8, 0, 16, 0, 16, 0, 0, 0, 15, 0, 12, 0, 10, 0, 17, 0, 17, 0, 16, 2, 9, 0, 17, 1, 13, 0, 12, 1)
