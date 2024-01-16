@@ -3,6 +3,10 @@ extends Node3D
 var player: Node3D = null
 @onready var hearts: GPUParticles3D = %Hearts
 
+@onready var scary: MeshInstance3D = %Scary
+@onready var cute: MeshInstance3D = %Cute
+
+
 @export
 var rotationSpeed: float = 0.5
 
@@ -42,11 +46,12 @@ func _process(delta):
 	
 	
 
-	if tamingTimeLeft <= 0:
+	if tamingTimeLeft <= 0 && tamed == false:
 		tamed = true
-	
-	if tamed:
 		hearts.emitting = true
+		scary.visible = false
+		setAlwaysVisible()
+	
 	
 	y_velocity -= player.gravity * delta
 
@@ -57,3 +62,10 @@ func _process(delta):
 		y_velocity = max(0.0, y_velocity)
 	
 	jumpingCooldown -= delta
+
+func setAlwaysVisible():
+	for i in 9:
+		# (cute.get_surface_override_material(i) as ShaderMaterial).set_shader_parameter("MinAlpha", 1)
+		var duplicateMaterial: ShaderMaterial = cute.get_surface_override_material(i).duplicate()
+		duplicateMaterial.set_shader_parameter("MinAlpha", 1)
+		cute.set_surface_override_material(i, duplicateMaterial)
