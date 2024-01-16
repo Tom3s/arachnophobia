@@ -21,6 +21,9 @@ var jumpStrength: float = 10.0
 @export
 var gravity: float = 10.0
 
+@export
+var sprintMultiplier: float = 2.0
+
 signal newPositionOnGrid(position: Vector2i)
 
 const GRID_SIZE: int = 10
@@ -43,6 +46,9 @@ func _process(delta):
 		moveDir += transform.basis.x
 	
 	moveDir = moveDir.normalized()
+
+	if Input.is_action_pressed("sprint"):
+		moveDir *= sprintMultiplier
 
 	if Input.is_action_just_pressed("jump") && global_position.y < 0.01:
 		velocity.y = jumpStrength

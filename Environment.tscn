@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://durwlggc6i12j"]
+[gd_scene load_steps=9 format=3 uid="uid://durwlggc6i12j"]
 
 [ext_resource type="Shader" uid="uid://cp7dpxsnbljhu" path="res://plane.tres" id="1_4rly7"]
 [ext_resource type="PackedScene" uid="uid://c616jee44wt1q" path="res://Player.tscn" id="2_yaxka"]
-[ext_resource type="PackedScene" uid="uid://dj7laeqr0neod" path="res://Models/Spider.tscn" id="3_cicq3"]
 [ext_resource type="Script" path="res://EventListener.gd" id="4_ecl41"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_g5u3f"]
@@ -15,9 +14,11 @@ background_mode = 2
 sky = SubResource("Sky_fpdbe")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
+fog_light_color = Color(0.313726, 0.341176, 0.388235, 1)
+fog_density = 0.0787
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_chiys"]
-size = Vector2(10, 10)
+size = Vector2(20, 20)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gmcll"]
 render_priority = 0
@@ -45,15 +46,6 @@ unique_name_in_owner = true
 
 [node name="Spiders" type="Node3D" parent="."]
 unique_name_in_owner = true
-
-[node name="Spider" parent="Spiders" instance=ExtResource("3_cicq3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.39308, 0, -16.5577)
-
-[node name="Spider2" parent="Spiders" instance=ExtResource("3_cicq3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3712, 0, -8.62076)
-
-[node name="Spider3" parent="Spiders" instance=ExtResource("3_cicq3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8126, 0, 10.0628)
 
 [node name="EventListener" type="Node" parent="."]
 script = ExtResource("4_ecl41")

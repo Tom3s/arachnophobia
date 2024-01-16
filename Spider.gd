@@ -25,6 +25,8 @@ var y_velocity = 0.0
 var jumpingCooldown = 0.0
 var initialJumpingCooldown = 0.5
 
+signal justTamed()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -51,6 +53,7 @@ func _process(delta):
 		hearts.emitting = true
 		scary.visible = false
 		setAlwaysVisible()
+		justTamed.emit()
 	
 	
 	y_velocity -= player.gravity * delta
