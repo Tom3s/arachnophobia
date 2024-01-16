@@ -21,6 +21,10 @@ var jumpStrength: float = 10.0
 @export
 var gravity: float = 10.0
 
+signal newPositionOnGrid(position: Vector2i)
+
+const GRID_SIZE: int = 10
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var moveDir = Vector3.ZERO
@@ -55,6 +59,9 @@ func _process(delta):
 	if global_position.y < 0.0:
 		global_position.y = 0.0
 		velocity.y = max(0.0, velocity.y)
+	
+	var gridPos = Vector2i(floor(global_position.x / GRID_SIZE), floor(global_position.z / GRID_SIZE))
+	newPositionOnGrid.emit(gridPos)
 
 @export
 var mouseSensitivity: float = 0.1
