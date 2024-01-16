@@ -23,7 +23,7 @@ size = Vector2(20, 20)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gmcll"]
 render_priority = 0
 shader = ExtResource("1_4rly7")
-shader_parameter/MixWeight = 0.565
+shader_parameter/MixWeight = 0.0
 shader_parameter/UVOffset = null
 
 [node name="Environment" type="Node3D"]
